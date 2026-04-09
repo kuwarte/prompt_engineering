@@ -1,0 +1,39 @@
+# Java compiled class files
+*.class
+
+# Package directories
+bin/
+out/
+
+# Build tools
+target/
+build/
+
+# IDE-specific files
+*.iml
+.idea/
+.vscode/
+*.classpath
+*.project
+*.settings/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# Node / frontend stuff (if you add a dashboard with React)
+node_modules/
+dist/
+.env
+
+# Markdown previews or generated PDFs (optional)
+*.pdf
+*.html
