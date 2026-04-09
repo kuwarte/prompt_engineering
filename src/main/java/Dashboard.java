@@ -1,26 +1,26 @@
 public class Dashboard {
 
     // ── ANSI escape codes ────────────────────────────────────────────────────
-    private static final String RESET   = "\033[0m";
-    private static final String BOLD    = "\033[1m";
-    private static final String DIM     = "\033[2m";
+    private static final String RESET = "\033[0m";
+    private static final String BOLD = "\033[1m";
+    private static final String DIM = "\033[2m";
 
     // Foreground colors
-    private static final String FG_WHITE   = "\033[97m";
-    private static final String FG_CYAN    = "\033[96m";
-    private static final String FG_YELLOW  = "\033[93m";
-    private static final String FG_GREEN   = "\033[92m";
-    private static final String FG_RED     = "\033[91m";
+    private static final String FG_WHITE = "\033[97m";
+    private static final String FG_CYAN = "\033[96m";
+    private static final String FG_YELLOW = "\033[93m";
+    private static final String FG_GREEN = "\033[92m";
+    private static final String FG_RED = "\033[91m";
     private static final String FG_MAGENTA = "\033[95m";
-    private static final String FG_BLUE    = "\033[94m";
-    private static final String FG_GRAY    = "\033[90m";
+    private static final String FG_BLUE = "\033[94m";
+    private static final String FG_GRAY = "\033[90m";
 
     // Background colors
-    private static final String BG_DARK    = "\033[40m";
+    private static final String BG_DARK = "\033[40m";
 
     // Bar characters
-    private static final String BAR_CHAR   = "█";
-    private static final String BAR_HALF   = "▓";
+    private static final String BAR_CHAR = "█";
+    private static final String BAR_HALF = "▓";
 
     private final String criteria;
     private final double maxValue;
@@ -39,7 +39,7 @@ public class Dashboard {
         String border = "═".repeat(72);
         System.out.println(BOLD + FG_CYAN + "╔" + border + "╗" + RESET);
         System.out.println(BOLD + FG_CYAN + "║" + RESET
-                + centerPad("E-Commerce Product Analytics – Merge Sort Visualization", 72)
+                + centerPad("E-Commerce Product Analytics", 72)
                 + BOLD + FG_CYAN + "║" + RESET);
         System.out.println(BOLD + FG_CYAN + "╚" + border + "╝" + RESET);
         System.out.println();
@@ -55,38 +55,38 @@ public class Dashboard {
         System.out.println();
 
         for (int idx = 0; idx < arr.length; idx++) {
-            Product p    = arr[idx];
-            double  val  = p.getValue(criteria);
-            int     bars = (int) Math.round((val / maxValue) * BAR_WIDTH);
+            Product p = arr[idx];
+            double val = p.getValue(criteria);
+            int bars = (int) Math.round((val / maxValue) * BAR_WIDTH);
             bars = Math.max(1, bars);
 
-            boolean inRange   = (idx >= activeLeft && idx <= activeRight);
-            boolean placed    = (idx == justPlaced);
+            boolean inRange = (idx >= activeLeft && idx <= activeRight);
+            boolean placed = (idx == justPlaced);
 
             String nameColor, barColor, labelColor;
 
             if (placed) {
                 nameColor = BOLD + FG_GREEN;
-                barColor  = FG_GREEN;
-                labelColor= BOLD + FG_GREEN;
+                barColor = FG_GREEN;
+                labelColor = BOLD + FG_GREEN;
             } else if (inRange) {
                 nameColor = BOLD + FG_YELLOW;
-                barColor  = FG_YELLOW;
-                labelColor= FG_YELLOW;
+                barColor = FG_YELLOW;
+                labelColor = FG_YELLOW;
             } else {
                 nameColor = FG_WHITE;
-                barColor  = FG_BLUE;
-                labelColor= FG_GRAY;
+                barColor = FG_BLUE;
+                labelColor = FG_GRAY;
             }
 
             String bar = BAR_CHAR.repeat(Math.max(0, bars - 1))
-                       + (bars > 0 ? BAR_HALF : "");
+                    + (bars > 0 ? BAR_HALF : "");
 
             String valueStr = formatValue(val);
             System.out.printf("  %s%-20s%s %s%-" + BAR_WIDTH + "s%s %s%s%s%n",
                     nameColor, truncate(p.getName(), 20), RESET,
-                    barColor,  bar,                       RESET,
-                    labelColor, valueStr,                 RESET);
+                    barColor, bar, RESET,
+                    labelColor, valueStr, RESET);
         }
 
         System.out.println();
@@ -101,10 +101,10 @@ public class Dashboard {
         System.out.printf("  %s⚖  Comparing  %s%s%s  vs  %s%s%s%n",
                 FG_MAGENTA + BOLD,
                 FG_YELLOW, truncate(a.getName(), 20), RESET + FG_MAGENTA + BOLD,
-                FG_RED,    truncate(b.getName(), 20), RESET);
+                FG_RED, truncate(b.getName(), 20), RESET);
         System.out.printf("       %s%.2f%s  vs  %s%.2f%s%n%n",
                 FG_YELLOW, a.getValue(criteria), RESET,
-                FG_RED,    b.getValue(criteria), RESET);
+                FG_RED, b.getValue(criteria), RESET);
         sleep(140);
     }
 
@@ -136,11 +136,11 @@ public class Dashboard {
     // ── Helpers ───────────────────────────────────────────────────────────────
     private String formatValue(double val) {
         return switch (criteria) {
-            case "PRICE"  -> String.format("$%,8.2f", val);
+            case "PRICE" -> String.format("$%,8.2f", val);
             case "RATING" -> String.format("  ★ %.1f ", val);
-            case "SALES"  -> String.format("%,8d sold", (int) val);
-            case "STOCK"  -> String.format("%,8d units", (int) val);
-            default       -> String.format("%10.2f", val);
+            case "SALES" -> String.format("%,8d sold", (int) val);
+            case "STOCK" -> String.format("%,8d units", (int) val);
+            default -> String.format("%10.2f", val);
         };
     }
 
@@ -149,7 +149,7 @@ public class Dashboard {
     }
 
     private String centerPad(String s, int width) {
-        int pad  = (width - s.length()) / 2;
+        int pad = (width - s.length()) / 2;
         int rPad = width - s.length() - pad;
         return " ".repeat(Math.max(0, pad)) + s + " ".repeat(Math.max(0, rPad));
     }
@@ -160,6 +160,10 @@ public class Dashboard {
     }
 
     private void sleep(long ms) {
-        try { Thread.sleep(ms); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
